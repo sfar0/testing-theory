@@ -21,7 +21,18 @@ def main():
         test_gacc(key, sol)
 
     #======CACC======
+    print("\n====CACC====")
+    for key , clause in clauses.items():
+        print(f"\n====for clause ({key})====")
+        cacc_i = cacc(s , major_clauses[key], clause , key)
+        pretty_log_cacc(cacc_i , key)
+
     #======RACC======
+    print("\n====RACC====")
+    for key , clause in clauses.items():
+        print(f"\n====for clause ({key})==== ")
+        racc_i = racc(s , major_clauses[key] , clause , key)
+        pretty_log_racc(racc_i , key)
 
     #======GICC======
     print("\n====GICC====")

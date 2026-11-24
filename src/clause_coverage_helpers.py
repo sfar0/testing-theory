@@ -25,6 +25,34 @@ def gacc(s , major_i , clause_i , key_i):
         solution.append(sol_i)
     return solution
 
+
+# CACC
+def cacc(s , active_i , i , key_i):
+    solution = []
+    for c_val in (True , False):
+        label = f"inactive clause {key_i} with {key_i} = {c_val} and p = True or False"
+        sol_i = solve(s , label , active_i , lit(i , c_val) , lit(p , c_val))
+        solution.append(sol_i)
+    return solution
+
+
+
+# RACC
+def racc(s, active_i, i, i_key):
+    constraints = [
+        copy_of(i, "t"),            # c_i = True in test t
+        Not(copy_of(i, "f")),       # c_i = False in test f
+        copy_of(active_i, "t"),     # c_i determines p in test t
+        copy_of(active_i, "f"),     # c_i determines p in test f
+    ]
+    # RACC: every minor clause has the same truth value in both tests
+    for key, clause in clauses.items():
+        if key != i_key:
+            constraints.append(copy_of(clause, "t") == copy_of(clause, "f"))
+    label = f"active clause {i_key} (restricted)"
+    return solve(s, label, *constraints)
+
+
 # GICC
 def gicc(s , inactive_i , i , key_i):
     results = {}
