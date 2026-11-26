@@ -29,13 +29,22 @@ def gacc(s , major_i , clause_i , key_i):
 # CACC
 def cacc(s , active_i , i , key_i):
     solution = []
-    for c_val in (True , False):
-        label = f"inactive clause {key_i} with {key_i} = {c_val} and p = True or False"
-        sol_i = solve(s , label , active_i , lit(i , c_val) , lit(p , c_val))
-        solution.append(sol_i)
+    def cacc_helper(c_val ,p_val):
+        if len(solution) > 2:
+            return
+        label = f"active clause {key_i} with {key_i} = {c_val} and p = {p_val}"
+        sol_i = solve(s , label , active_i , lit(i , c_val) , lit(p ,p_val))
+        if sol_i is None:
+            solution.append(None)
+            cacc_helper(c_val,not(p_val))
+        else:
+            if (len(solution) > 0 and solution[0] is None):
+                solution.pop()
+            solution.append(sol_i)
+            cacc_helper(not (c_val),not(p_val))
+
+    cacc_helper(True , True)
     return solution
-
-
 
 # RACC
 def racc(s, active_i, i, i_key):
