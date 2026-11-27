@@ -10,7 +10,7 @@ Implementing logic coverage testing criteria.
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python src/clause_coverage.py
+python src/clause_coverage.py gacc racc gicc
 ```
 
 ## Windows
@@ -19,7 +19,7 @@ python src/clause_coverage.py
 python -m venv .venv
 .venv\Scripts\activate.bat
 pip install -r requirements.txt
-python src\clause_coverage.py
+python src\clause_coverage.py gacc racc gicc
 ```
 
 # RESULT
